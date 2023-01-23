@@ -46,7 +46,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Type your search query in the input field and a definition, as well as a listing of the synonyms and
+                    Type your search query in the input field and a definition for the word, as well as a listing of the synonyms and
                     antonyms will be generated.
                 </div>
             </div>
@@ -71,14 +71,21 @@
 
         <div class="row justify-content-center">
             <div class="col-8 col-md-5">
+                {% if error %}
+                <div class="text-center">
+                <i class="fa-fade fa-solid fa-triangle-exclamation me-1 fa-lg  align-baseline" style="color: red;"></i>{{error}}
+                </div>
+                {% else %}
+                    
+                
                 <div class="d-flex">
-                    <p class="me-2">Meaning:</p>
-                    <p class="">{{meaning}}</p>
+                    <p class="me-2 fw-bold">Meaning:</p>
+                    {{meaning|capfirst}}
                 </div>
 
                 {% if synonyms %}
-                <div class="d-flex">
-                    <p class="me-2">Synonyms: </p>
+                <div class="d-flex py-3">
+                    <p class="me-2 fw-bold">Synonyms: </p>
                     {% for synonym in synonyms %}
 
                     {% if forloop.last %}
@@ -92,19 +99,22 @@
                 </div>
                 {% endif %}
 
-                {% if anytonyms %}
+                {% if antonyms %}
                 <div class="d-flex">
-                    <p class="me-2">antonyms:</p>
+                    <p class="me-2 fw-bold">Antonyms:</p>
                     {% for antonym in antonyms %}
                     {% if forloop.last %}
-                    <p class="">{{antonyms}}</p>
+                    {{antonym}}
 
                     {% else %}
-                    <p class="">{{antonyms}},</p>
+                    {{antonym}},
                     {% endif %}
                     {% endfor %}
                 </div>
                 {% endif %}
+
+                {% endif %}
+
             </div>
         </div>
 

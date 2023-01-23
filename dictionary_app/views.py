@@ -7,9 +7,18 @@ def index(request):
 def word(request):
     search = request.GET.get('search')
     dictionary = Dictionary(search)
-    meaning = dictionary.meanings()[0]
+    
+    try:
+        meaning = dictionary.meanings()[0]
+    except:
+        context = {
+            'error': 'Invalid input. please try again.'
+        }
+        return render(request, 'word.html', context=context)
+        
     synonyms = dictionary.synonyms()
     antonyms = dictionary.antonyms()
+    print(antonyms)
     context = {
         'meaning': meaning,
         'synonyms': synonyms,
